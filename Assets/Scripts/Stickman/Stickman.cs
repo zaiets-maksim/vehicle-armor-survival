@@ -104,7 +104,6 @@ public class Stickman : Enemy, IDamageble
         if(_health <= 0)
             return;
 
-        Debug.Log(_health);
         _skinnedMeshRenderer.material.color = Color.red;
     }
 
