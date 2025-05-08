@@ -15,5 +15,5 @@ MonoBehaviour:
   Configs:
   - TypeId: 1
     Prefab: {fileID: 7562870616341735557, guid: 63db86a1c70b53c4a8d152e8d12a3a49, type: 3}
-    Damage: 5
     Heath: 20
+    Damage: 7
