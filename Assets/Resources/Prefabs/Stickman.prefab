@@ -15907,7 +15907,6 @@ GameObject:
   - component: {fileID: 4933906889060348218}
   - component: {fileID: 3264045646675394634}
   - component: {fileID: 6220756774068746242}
-  - component: {fileID: 2884244534156439797}
   - component: {fileID: 8040657284252000745}
   m_Layer: 0
   m_Name: Stickman
@@ -16021,7 +16020,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _animator: {fileID: 4975964644305351819}
-  _name: 
 --- !u!114 &4933906889060348218
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16079,19 +16077,6 @@ MonoBehaviour:
   _minSpeedFactor: 0.7
   _speed: 1.25
   _stoppingDistance: 2.25
---- !u!114 &2884244534156439797
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7562870616341735557}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0991ac99d90f1374097d56229520d042, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _animatorAnimator: {fileID: 8961204944991885228}
 --- !u!114 &8040657284252000745
 MonoBehaviour:
   m_ObjectHideFlags: 0

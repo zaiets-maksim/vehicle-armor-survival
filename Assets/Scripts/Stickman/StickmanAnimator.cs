@@ -10,7 +10,6 @@ public class StickmanAnimator : MonoBehaviour
     private static readonly int IsAttacking = Animator.StringToHash("IsAttacking");
 
     [SerializeField] private Animator _animator;
-    [SerializeField] private string _name;
     private string[] _idleStateNames;
     private string _randomState;
 
