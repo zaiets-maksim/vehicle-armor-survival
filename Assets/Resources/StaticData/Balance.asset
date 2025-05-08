@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Enemies:
     EnemyTypes: -1
-    Long: {x: 30, y: 270}
+    Long: {x: 30, y: 200}
     Width: {x: -10, y: 10}
-    Quantity: {x: 75, y: 100}
+    Quantity: {x: 75, y: 75}
