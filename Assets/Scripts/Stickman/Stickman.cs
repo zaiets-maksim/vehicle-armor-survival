@@ -96,6 +96,9 @@ public class Stickman : Enemy, IDamageble
         
         _skinnedMeshRenderer.material.color = Color.white;
         await UniTask.Delay(0.25f.ToMiliseconds());
+        if(_health <= 0)
+            return;
+        
         _skinnedMeshRenderer.material.color = Color.red;
     }
 
