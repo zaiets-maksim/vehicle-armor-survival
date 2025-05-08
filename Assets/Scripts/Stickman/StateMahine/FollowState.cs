@@ -33,7 +33,14 @@ internal class FollowState : StickmanBaseState
 
     public override void Update()
     {
-        _point = _player.GetNearestPointTo(_transform.position);
-        _rootMotionAgent.SetDestination(_point);
+        if (_player.IsAlive)
+        {
+            _point = _player.GetNearestPointTo(_transform.position);
+            _rootMotionAgent.SetDestination(_point);
+        }
+        else
+        {
+            _stickmanBehaviour.ChangeState<IdleState>();
+        }
     }
 }

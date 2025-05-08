@@ -14860,7 +14860,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _animator: {fileID: 4975964644305351819}
-  _name: Zombie Turn
+  _name: 
 --- !u!114 &4933906889060348218
 MonoBehaviour:
   m_ObjectHideFlags: 0

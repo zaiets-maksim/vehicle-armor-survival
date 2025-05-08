@@ -6,16 +6,16 @@ namespace StaticData
     [CreateAssetMenu(menuName = "StaticData/Balance", fileName = "Balance", order = 0)]
     public class BalanceStaticData : ScriptableObject
     {
-        public Customers Customers = new();
+        public Enemies Enemies = new();
     }
 
     [Serializable]
-    public class Customers
+    public class Enemies
     {
-        [Header("(in seconds)")]
-        public Vector2 SpawnInterval;
-        public Vector2 Speed;
-        public float DefaultSpeed;
-        public Vector2 MealDurationInterval;
+        public EnemyTypeId EnemyTypes;
+        [Header("Spawn area")] 
+        public Vector2 Long;
+        public Vector2 Width;
+        public Vector2Int Quantity;
     }
 }

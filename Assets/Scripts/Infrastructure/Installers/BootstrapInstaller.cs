@@ -4,6 +4,7 @@ using Infrastructure.StateMachine.Game;
 using Infrastructure.StateMachine.Game.States;
 using PiratesIdle.Scripts.Infrastructure;
 using Services.DataStorageService;
+using Services.EnemyGenerator;
 using Services.Factories.UIFactory;
 using Services.SaveLoad;
 using Services.StaticDataService;
@@ -40,6 +41,7 @@ namespace Infrastructure.Installers
             Container.BindInterfacesTo<WindowService>().AsSingle();
             Container.BindInterfacesTo<PersistenceProgressService>().AsSingle();
             Container.BindInterfacesTo<GameCurator>().AsSingle();
+            Container.BindInterfacesTo<EnemyGenerator>().AsSingle();
         }
 
         private void BindMonoServices()

@@ -1,4 +1,5 @@
 using System.Collections;
+using ModestTree;
 using UnityEngine;
 
 public class Turret : MonoBehaviour
@@ -11,7 +12,7 @@ public class Turret : MonoBehaviour
     [SerializeField] private bool _useSmoothing;
     [SerializeField] private float _rotationSpeed = 400f;
     [SerializeField] private Laser _laser;
-    
+
     private InputController _input;
     private float _targetAngle;
     private Camera _camera;
@@ -30,15 +31,16 @@ public class Turret : MonoBehaviour
         _input.OnSwipeUpdate += AimTurretAtTouch;
 
         _laser.enabled = true;
+        _laser.Enable();
     }
 
     public void Disable()
     {
         _input.OnSwipeUpdate -= AimTurretAtTouch;
-        if(_reloadAndShotCoroutine != null)
+        if (_reloadAndShotCoroutine != null) 
             StopCoroutine(_reloadAndShotCoroutine);
 
-        _laser.enabled = false;
+        _laser.Disable();
     }
 
     private void AimTurretAtTouch(Vector2 touchPosition)
@@ -81,6 +83,6 @@ public class Turret : MonoBehaviour
         var bullet = Instantiate(_bulletPrefab, _firePoint.position, _firePoint.rotation);
         StartCoroutine(bullet.Move(player.CurrentVelocity));
         bullet.AlightByHeight(1.1f);
-        StartCoroutine(ReloadAndShot());
+        _reloadAndShotCoroutine = StartCoroutine(ReloadAndShot());
     }
 }

@@ -23,5 +23,5 @@ public class Bullet : MonoBehaviour
         Destroy(gameObject);
     }
 
-    public void AlightByHeight(float height) => transform.DOMoveY(height, 0.2f);
+    public void AlightByHeight(float height) => transform.DOMoveY(height, 0.1f);
 }

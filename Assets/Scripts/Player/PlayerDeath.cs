@@ -12,11 +12,6 @@ public class PlayerDeath : MonoBehaviour
     [SerializeField] private Rigidbody _rigidbody;
     [SerializeField] private Player _player;
 
-    private void Start()
-    {
-        // Active();
-    }
-
     public async Task Active()
     {
         _player.Disable();
@@ -30,6 +25,6 @@ public class PlayerDeath : MonoBehaviour
         _rigidbody.AddTorque(Vector3.right * Random.Range(-1, 1) * 50f);
         _rigidbody.AddTorque(Vector3.up * Random.Range(-1, 1) * 50f);
 
-        await UniTask.Delay(4000);
+        await UniTask.Delay(2000);
     }
 }

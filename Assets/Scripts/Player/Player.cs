@@ -17,6 +17,7 @@ public class Player : MonoBehaviour, IDamageble
     [SerializeField] private float noiseStrength = 1f;
     [SerializeField] private float noiseSampleSpeed = 0.5f;
     [SerializeField] private float maxXRadius = 5f;
+    [SerializeField] private GameObject _healthBar; 
 
     public event Action<int> OnTakeDamage;
 
@@ -31,6 +32,7 @@ public class Player : MonoBehaviour, IDamageble
 
     public Vector3 CurrentVelocity => _currentVelocity;
     public int Health => _health;
+    public bool IsAlive => _health > 0;
 
     [Inject]
     public void Constructor(IGameCurator gameCurator)
@@ -54,6 +56,7 @@ public class Player : MonoBehaviour, IDamageble
     {
         _turret.Enable();
         _perlinMotionCoroutine = StartCoroutine(SimulatePerlinMotion());
+        _healthBar.SetActive(true);
     }
 
     public void Disable()
@@ -61,10 +64,14 @@ public class Player : MonoBehaviour, IDamageble
         _turret.Disable();
         if (_perlinMotionCoroutine != null)
             StopCoroutine(_perlinMotionCoroutine);
+        _healthBar.SetActive(false);
     }
 
     public async void TakeDamage(int damage)
     {
+        if(!IsAlive)
+            return;
+        
         _health -= damage;
         OnTakeDamage?.Invoke(damage);
 

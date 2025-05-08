@@ -5,7 +5,7 @@ using Zenject;
 
 public class EnemyFactory : Factory, IEnemyFactory
 {
-    private IStaticDataService _staticDataService;
+    private readonly IStaticDataService _staticDataService;
 
     public EnemyFactory(IInstantiator instantiator, IStaticDataService staticDataService) : base(instantiator)
     {

@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2b54477be012484db00d62cbd4edeaa, type: 3}
   m_Name: Balance
   m_EditorClassIdentifier: 
-  Customers:
-    SpawnInterval: {x: 10, y: 17}
-    Speed: {x: 2, y: 4.5}
-    DefaultSpeed: 3.5
-    MealDurationInterval: {x: 15, y: 45}
+  Enemies:
+    EnemyTypes: -1
+    Long: {x: 30, y: 270}
+    Width: {x: -15, y: 15}
+    Quantity: {x: 50, y: 75}

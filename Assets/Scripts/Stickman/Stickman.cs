@@ -21,7 +21,7 @@ public class Stickman : Enemy, IDamageble
     
     private Player _player;
     private Vector3 _point;
-    
+
 
     [Inject]
     public void Constructor(IGameFactory gameFactory)
@@ -49,7 +49,7 @@ public class Stickman : Enemy, IDamageble
             _stickmanBehaviour.ChangeState<FollowState>();
         }
     }
-
+    
     private void Init()
     {
         _vision.StartLooking();
