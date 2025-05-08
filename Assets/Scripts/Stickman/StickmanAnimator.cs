@@ -47,13 +47,7 @@ public class StickmanAnimator : MonoBehaviour
     private void PlayRandomIdle()
     {
         if (_idleStateNames.Length == 0) return;
-
         _randomState = _idleStateNames[Random.Range(0, _idleStateNames.Length)];
-        
-        if (_name != String.Empty) // for test
-            _randomState = _name;
-
         _animator.Play(_randomState, 0, 0f);
-        Debug.Log(_randomState);
     }
 }
