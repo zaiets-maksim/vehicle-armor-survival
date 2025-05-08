@@ -202,7 +202,7 @@ public class Player : MonoBehaviour, IDamageble
                 transform.Rotate(0f, forcedTurn * rotationSpeed * Time.deltaTime * 2f, 0f);
             }
 
-            _noiseOffset += noiseSampleSpeed * Time.deltaTime;
+            _noiseOffset += noiseSampleSpeed * Time.fixedDeltaTime;
 
             yield return new WaitForFixedUpdate();
         }
