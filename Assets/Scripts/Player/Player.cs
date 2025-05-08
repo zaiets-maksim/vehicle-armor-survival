@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using DG.Tweening;
 using UnityEngine;
+using Zenject;
 using Random = UnityEngine.Random;
 
 public class Player : MonoBehaviour, IDamageble
@@ -26,18 +27,43 @@ public class Player : MonoBehaviour, IDamageble
     private Coroutine _perlinMotionCoroutine;
     private Material _material;
     private static readonly int OverrideAmount = Shader.PropertyToID("_OverrideAmount");
+    private IGameCurator _gameCurator;
 
     public Vector3 CurrentVelocity => _currentVelocity;
     public int Health => _health;
+
+    [Inject]
+    public void Constructor(IGameCurator gameCurator)
+    {
+        _gameCurator = gameCurator;
+    }
 
     private void Start()
     {
         _material = _meshRenderer.material;
         _noiseOffset = Random.Range(0f, 100f);
+        _gameCurator.OnStartGame += Enable;
+    }
+
+    private void OnDestroy()
+    {
+        _gameCurator.OnStartGame -= Enable;
+    }
+
+    public void Enable()
+    {
+        _turret.Enable();
         _perlinMotionCoroutine = StartCoroutine(SimulatePerlinMotion());
     }
 
-    public void TakeDamage(int damage)
+    public void Disable()
+    {
+        _turret.Disable();
+        if (_perlinMotionCoroutine != null)
+            StopCoroutine(_perlinMotionCoroutine);
+    }
+
+    public async void TakeDamage(int damage)
     {
         _health -= damage;
         OnTakeDamage?.Invoke(damage);
@@ -45,7 +71,10 @@ public class Player : MonoBehaviour, IDamageble
         AnimateDamage();
 
         if (_health <= 0)
-            _playerDeath.Active();
+        {
+            await _playerDeath.Active();
+            _gameCurator.EndGame(GameResult.Lose);
+        }
     }
 
     private void AnimateDamage()
@@ -150,12 +179,5 @@ public class Player : MonoBehaviour, IDamageble
 
             yield return null;
         }
-    }
-
-    public void Disable()
-    {
-        _turret.Disable();
-        if (_perlinMotionCoroutine != null)
-            StopCoroutine(_perlinMotionCoroutine);
     }
 }

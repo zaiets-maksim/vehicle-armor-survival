@@ -39,6 +39,7 @@ namespace Infrastructure.Installers
             Container.BindInterfacesTo<SaveLoadService>().AsSingle();
             Container.BindInterfacesTo<WindowService>().AsSingle();
             Container.BindInterfacesTo<PersistenceProgressService>().AsSingle();
+            Container.BindInterfacesTo<GameCurator>().AsSingle();
         }
 
         private void BindMonoServices()

@@ -106,3 +106,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _target: {fileID: 0}
+  _sidePoint: {fileID: 7282527284498042792, guid: 0a33c67f6231552408d1a23c92c2ce64, type: 3}
+  _startPoint: {fileID: 6916031403921748956, guid: 1cf646c0c7a55c945a6ff0de2d8e839c, type: 3}

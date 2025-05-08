@@ -13,6 +13,8 @@ namespace StaticData.Configs
     public enum WindowTypeId
     {
         Default,
-        Menu
+        Menu,
+        Win,
+        Lose
     }
 }

@@ -21,8 +21,24 @@ public class Turret : MonoBehaviour
     {
         _input = input;
         _camera = camera;
+        Disable();
+    }
+
+    public void Enable()
+    {
         _reloadAndShotCoroutine = StartCoroutine(ReloadAndShot());
         _input.OnSwipeUpdate += AimTurretAtTouch;
+
+        _laser.enabled = true;
+    }
+
+    public void Disable()
+    {
+        _input.OnSwipeUpdate -= AimTurretAtTouch;
+        if(_reloadAndShotCoroutine != null)
+            StopCoroutine(_reloadAndShotCoroutine);
+
+        _laser.enabled = false;
     }
 
     private void AimTurretAtTouch(Vector2 touchPosition)
@@ -66,14 +82,5 @@ public class Turret : MonoBehaviour
         StartCoroutine(bullet.Move(player.CurrentVelocity));
         bullet.AlightByHeight(1.1f);
         StartCoroutine(ReloadAndShot());
-    }
-
-    public void Disable()
-    {
-        _input.OnSwipeUpdate -= AimTurretAtTouch;
-        if(_reloadAndShotCoroutine != null)
-            StopCoroutine(_reloadAndShotCoroutine);
-
-        _laser.enabled = false;
     }
 }

@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EnemyData:
   - TypeId: 1
-    Position: {x: 2.89, y: 0.25, z: 37}
+    Position: {x: 2.89, y: 0.0023, z: 37}
     Rotation: {x: -0, y: 0, z: 0}
