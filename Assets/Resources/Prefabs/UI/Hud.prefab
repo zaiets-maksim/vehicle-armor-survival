@@ -102,7 +102,6 @@ GameObject:
   - component: {fileID: 8257779226070513471}
   - component: {fileID: 1494117550260198176}
   - component: {fileID: 6159527978344820240}
-  - component: {fileID: 4090552275416986940}
   m_Layer: 5
   m_Name: PauseButton
   m_TagString: Untagged
@@ -224,19 +223,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _coefficientScale: 0.97
---- !u!114 &4090552275416986940
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4265710166786127406}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: de2f6f8a0ffb9f1499fc4b6f8b8c64cc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _button: {fileID: 1494117550260198176}
 --- !u!1 &4350901799890678115
 GameObject:
   m_ObjectHideFlags: 0
@@ -328,6 +314,7 @@ GameObject:
   - component: {fileID: 7363962796253750671}
   - component: {fileID: 236400111449274665}
   - component: {fileID: 2817201798822341997}
+  - component: {fileID: 6469949692855349552}
   m_Layer: 5
   m_Name: FPSText
   m_TagString: Untagged
@@ -411,6 +398,21 @@ MonoBehaviour:
   _text: {fileID: 236400111449274665}
   _targetFPS: 60
   _refreshDelay: 0.5
+--- !u!114 &6469949692855349552
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4818160437434967240}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 1}
+  m_EffectDistance: {x: 2, y: -2}
+  m_UseGraphicAlpha: 1
 --- !u!1 &4900582113560792169
 GameObject:
   m_ObjectHideFlags: 0
@@ -1088,6 +1090,7 @@ GameObject:
   - component: {fileID: 2940235399634333626}
   - component: {fileID: 2174709679458186589}
   - component: {fileID: 6747327261886252458}
+  - component: {fileID: 8223052111686105117}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -1170,3 +1173,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   zoomAmount: 1.2
   zoomDuration: 0.5
+--- !u!114 &8223052111686105117
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9200767650615104276}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 1}
+  m_EffectDistance: {x: 2, y: -2}
+  m_UseGraphicAlpha: 0

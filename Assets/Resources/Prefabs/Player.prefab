@@ -272,7 +272,6 @@ MonoBehaviour:
     m_NumColorKeys: 2
     m_NumAlphaKeys: 2
   _healthBar: {fileID: 7557266156820229626}
-  _player: {fileID: 34538598841736079}
 --- !u!1 &6421065426990539250
 GameObject:
   m_ObjectHideFlags: 0
@@ -471,6 +470,7 @@ MonoBehaviour:
   noiseSampleSpeed: 0.25
   maxXRadius: 3.5
   _healthBar: {fileID: 5797061631208626667}
+  _healthView: {fileID: 6225021688924672109}
 --- !u!114 &6942500759222761710
 MonoBehaviour:
   m_ObjectHideFlags: 0

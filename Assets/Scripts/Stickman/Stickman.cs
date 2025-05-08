@@ -15,11 +15,13 @@ public class Stickman : Enemy, IDamageble
     [SerializeField] private StickmanAnimator _stickmanAnimator;
     [SerializeField] private StickmanBehaviour _stickmanBehaviour;
     [SerializeField] private StickmanVision _vision;
-    
+    [SerializeField] private DamageView _damageView;
+    [SerializeField] private HealthView _healthView;
+
     public event Action<int> OnTakeDamage;
-    
+
     private IGameFactory _gameFactory;
-    
+
     private Player _player;
     private Vector3 _point;
     private IGameCurator _gameCurator;
@@ -66,6 +68,7 @@ public class Stickman : Enemy, IDamageble
     private void Init()
     {
         _vision.StartLooking();
+        _healthView.Init(_health, this);
     }
 
     private void TryChangeToAttackState() => _stickmanBehaviour.ChangeState<AttackState>();
@@ -74,9 +77,11 @@ public class Stickman : Enemy, IDamageble
     {
         _health -= bullet.Damage;
         OnTakeDamage?.Invoke(bullet.Damage);
-
+        _damageView.ShowDamage(bullet.Damage);
+        
         if (_health <= 0)
         {
+            _damageView.ShowDamage(bullet.Damage);
             Death();
             return;
         }
@@ -98,7 +103,8 @@ public class Stickman : Enemy, IDamageble
         await UniTask.Delay(0.25f.ToMiliseconds());
         if(_health <= 0)
             return;
-        
+
+        Debug.Log(_health);
         _skinnedMeshRenderer.material.color = Color.red;
     }
 
@@ -115,7 +121,7 @@ public class Stickman : Enemy, IDamageble
 
         Destroy(_deathParticles.gameObject, 3f);
         Destroy(_damageParticles.gameObject, 3f);
-        Destroy(gameObject);
+        gameObject.SetActive(false);
     }
 
     private void OnDrawGizmos()

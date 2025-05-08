@@ -19,7 +19,8 @@ public class Player : MonoBehaviour, IDamageble
     [SerializeField] private float noiseStrength = 1f;
     [SerializeField] private float noiseSampleSpeed = 0.5f;
     [SerializeField] private float maxXRadius = 5f;
-    [SerializeField] private GameObject _healthBar; 
+    [SerializeField] private GameObject _healthBar;
+    [SerializeField] private HealthView _healthView;
 
     public event Action<int> OnTakeDamage;
 
@@ -47,6 +48,7 @@ public class Player : MonoBehaviour, IDamageble
         _material = _meshRenderer.material;
         _noiseOffset = Random.Range(0f, 100f);
         _gameCurator.OnStartGame += Enable;
+        _healthView.Init(_health, this);
     }
 
     private void OnDestroy()
