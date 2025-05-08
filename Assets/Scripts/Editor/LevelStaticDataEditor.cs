@@ -1,5 +1,7 @@
+using System.Linq;
 using StaticData.Levels;
 using UnityEditor;
+using UnityEngine;
 
 namespace Editor
 {
@@ -22,6 +24,27 @@ namespace Editor
 
         private void ShowLoadButtons()
         {
+            if (GUILayout.Button("Load Enemy Data"))
+                LoadEnemyData();
         }
+
+        private void LoadEnemyData()
+        {
+            _levelStaticData.EnemyData = FindEnemies();
+            EditorUtility.SetDirty(_levelStaticData);
+        }
+
+        private EnemyData[] FindEnemies() =>
+            FindObjectsOfType<EnemySpawnMarker>()
+                .Select(EnemiesData).ToArray();
+
+
+        private EnemyData EnemiesData(EnemySpawnMarker enemySpawnMarker) =>
+            new()
+            {
+                TypeId = enemySpawnMarker.TypeId,
+                Position = enemySpawnMarker.transform.position,
+                Rotation = enemySpawnMarker.transform.eulerAngles,
+            };
     }
 }

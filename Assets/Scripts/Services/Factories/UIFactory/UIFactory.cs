@@ -1,4 +1,3 @@
-using Connect4.Scripts.Services.Factories;
 using Services.StaticDataService;
 using StaticData.Configs;
 using UnityEngine;

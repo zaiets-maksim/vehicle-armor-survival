@@ -6,12 +6,12 @@ internal class FollowState : StickmanBaseState
     private readonly StickmanAnimator _animator;
     private readonly RootMotionAgent _rootMotionAgent;
     private readonly Transform _transform;
-    private readonly Car _player;
+    private readonly Player _player;
     private readonly Stickman _stickman;
     
     private Vector3 _point;
 
-    public FollowState(StickmanBehaviour stickmanBehaviour, StickmanAnimator animator, RootMotionAgent rootMotionAgent, Stickman stickman, Car player)
+    public FollowState(StickmanBehaviour stickmanBehaviour, StickmanAnimator animator, RootMotionAgent rootMotionAgent, Stickman stickman, Player player)
     {
         _stickman = stickman;
         _transform = _stickman.transform;

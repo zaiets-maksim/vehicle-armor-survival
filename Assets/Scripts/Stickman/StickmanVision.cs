@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using Zenject;
 
 public class StickmanVision : MonoBehaviour
 {
@@ -7,20 +8,29 @@ public class StickmanVision : MonoBehaviour
     [SerializeField] private int _radiusForAttack;
     [SerializeField] private float _checkInterval = 0.4f;
     
-    [SerializeField] private Car _car; // ZENJECT
+    private Player _player;
 
     private bool _canSee;
     private Coroutine _lookingCoroutine;
-    private float _distanceToCar;
+    private float _distanceToPlayer;
     private bool _canAttack;
-    private Vector3 _carNearestPoint;
+    private Vector3 _playerNearestPoint;
+    private IGameFactory _gameFactory;
 
-    public Vector3 CarNearestPoint => _carNearestPoint;
-    public float DistanceToCar => _distanceToCar;
+    public Vector3 PlayerNearestPoint => _playerNearestPoint;
+    public float DistanceToPlayer => _distanceToPlayer;
     
     public double VisionRadius => _radius;
     public bool CanSee => _canSee;
     public bool CanAttack => _canAttack;
+
+    [Inject]
+    public void Constructor(IGameFactory gameFactory)
+    {
+        _gameFactory = gameFactory;
+
+        _player = _gameFactory.Player;
+    }
 
     public void StartLooking()
     {
@@ -40,12 +50,12 @@ public class StickmanVision : MonoBehaviour
     {
         while (true)
         {
-            _carNearestPoint = _car.GetNearestPointTo(transform.position);
-            _distanceToCar = GetDistanceTo(_carNearestPoint);
-            _canSee = _distanceToCar < _radius;
+            _playerNearestPoint = _player.GetNearestPointTo(transform.position);
+            _distanceToPlayer = GetDistanceTo(_playerNearestPoint);
+            _canSee = _distanceToPlayer < _radius;
 
             if (_canSee)
-                _canAttack = _distanceToCar < _radiusForAttack;
+                _canAttack = _distanceToPlayer < _radiusForAttack;
             
             // if(_canAttack)
             //     StopLooking();

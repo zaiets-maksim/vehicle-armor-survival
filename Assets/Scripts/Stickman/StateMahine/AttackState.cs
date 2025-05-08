@@ -28,11 +28,7 @@ internal class AttackState : StickmanBaseState
 
     public override void Update()
     {
-        Vector3 direction = _vision.CarNearestPoint - _transform.position;
+        Vector3 direction = _vision.PlayerNearestPoint - _transform.position;
         _transform.rotation = Quaternion.LookRotation(direction);
-
-        
-        // _transform.eulerAngles = new Vector3(0, Quaternion.LookRotation(_vision.CarNearestPoint).eulerAngles.y, 0);
-        // rotating to player
     }
 }

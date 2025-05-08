@@ -42,8 +42,6 @@ public class StickmanAnimator : MonoBehaviour
             PlayRandomIdle();
         else
             _animator.Play(_randomState, 0, 0f);
-        
-        Debug.Log(_randomState);
     }
 
     private void PlayRandomIdle()

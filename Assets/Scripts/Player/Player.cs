@@ -1,0 +1,161 @@
+using System;
+using System.Collections;
+using DG.Tweening;
+using UnityEngine;
+using Random = UnityEngine.Random;
+
+public class Player : MonoBehaviour, IDamageble
+{
+    [SerializeField] private int _health;
+    [SerializeField] private Collider _collider;
+    [SerializeField] private MeshRenderer _meshRenderer;
+    [SerializeField] private PlayerDeath _playerDeath;
+    [SerializeField] private Turret _turret;
+    [SerializeField] private float moveSpeed = 5f;
+    [SerializeField] private float rotationSpeed = 30f;
+    [SerializeField] private float noiseStrength = 1f;
+    [SerializeField] private float noiseSampleSpeed = 0.5f;
+    [SerializeField] private float maxXRadius = 5f;
+
+    public event Action<int> OnTakeDamage;
+
+    private float _noiseOffset;
+    private Vector3 _currentVelocity;
+    private Vector3 _lastPosition;
+    private Vector3 _closestPoint;
+    private Coroutine _perlinMotionCoroutine;
+    private Material _material;
+    private static readonly int OverrideAmount = Shader.PropertyToID("_OverrideAmount");
+
+    public Vector3 CurrentVelocity => _currentVelocity;
+    public int Health => _health;
+
+    private void Start()
+    {
+        _material = _meshRenderer.material;
+        _noiseOffset = Random.Range(0f, 100f);
+        _perlinMotionCoroutine = StartCoroutine(SimulatePerlinMotion());
+    }
+
+    public void TakeDamage(int damage)
+    {
+        _health -= damage;
+        OnTakeDamage?.Invoke(damage);
+
+        AnimateDamage();
+
+        if (_health <= 0)
+            _playerDeath.Active();
+    }
+
+    private void AnimateDamage()
+    {
+        DOTween.To(
+            () => _material.GetFloat(OverrideAmount),
+            x => _material.SetFloat(OverrideAmount, x),
+            1f,
+            0.1f
+        ).OnComplete(() =>
+        {
+            DOTween.To(
+                () => _material.GetFloat(OverrideAmount),
+                x => _material.SetFloat(OverrideAmount, x),
+                0f,
+                0.15f);
+        });
+
+        transform.DOPunchScale(Vector3.one * 0.1f, 0.3f);
+    }
+
+    public void Initialize(InputController input, Camera camera)
+    {
+        _turret.Initialize(input, camera);
+    }
+
+    public Vector3 GetNearestPointTo(Vector3 position)
+    {
+        _closestPoint = _collider.ClosestPoint(position);
+        return _closestPoint;
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawLine(new Vector3(-maxXRadius, 0, transform.position.z - 7),
+            new Vector3(-maxXRadius, 0, transform.position.z + 7));
+        Gizmos.DrawLine(new Vector3(maxXRadius, 0, transform.position.z - 7),
+            new Vector3(maxXRadius, 0, transform.position.z + 7));
+
+        Gizmos.DrawSphere(_closestPoint, 0.2f);
+
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawLine(new Vector3(-maxXRadius * 0.8f, 0, transform.position.z - 7),
+            new Vector3(-maxXRadius * 0.8f, 0, transform.position.z + 7));
+        Gizmos.DrawLine(new Vector3(maxXRadius * 0.8f, 0, transform.position.z - 7),
+            new Vector3(maxXRadius * 0.8f, 0, transform.position.z + 7));
+
+        Gizmos.color = Color.green;
+        Gizmos.DrawLine(new Vector3(-maxXRadius * 0.5f, 0, transform.position.z - 7),
+            new Vector3(-maxXRadius * 0.5f, 0, transform.position.z + 7));
+        Gizmos.DrawLine(new Vector3(maxXRadius * 0.5f, 0, transform.position.z - 7),
+            new Vector3(maxXRadius * 0.5f, 0, transform.position.z + 7));
+    }
+
+    private IEnumerator SimulatePerlinMotion()
+    {
+        while (true)
+        {
+            _currentVelocity = (transform.position - _lastPosition) / Time.fixedDeltaTime;
+            _lastPosition = transform.position;
+
+            transform.Translate(Vector3.forward * (moveSpeed * Time.deltaTime));
+
+            float perlinValue = Mathf.PerlinNoise(_noiseOffset, Time.time * noiseSampleSpeed);
+
+            float turnDirection = (perlinValue * 2f - 1f) * noiseStrength;
+
+            float distanceFromCenter = Mathf.Abs(transform.position.x);
+            float distanceRatio = distanceFromCenter / maxXRadius;
+
+            float directionToCenter = transform.position.x > 0 ? -1f : 1f;
+
+            if (distanceRatio > 0)
+            {
+                turnDirection *= (1f - distanceRatio * 0.9f);
+
+                if (Mathf.Sign(turnDirection) != directionToCenter)
+                {
+                    turnDirection *= (1f - distanceRatio);
+
+                    if (distanceRatio > 0.8f)
+                    {
+                        turnDirection += directionToCenter * (distanceRatio - 0.8f) * 5f;
+                    }
+                }
+            }
+
+            transform.Rotate(0f, turnDirection * rotationSpeed * Time.deltaTime, 0f);
+
+            if (Mathf.Abs(transform.position.x) > maxXRadius)
+            {
+                Vector3 clampedPosition = transform.position;
+                clampedPosition.x = Mathf.Clamp(clampedPosition.x, -maxXRadius, maxXRadius);
+                transform.position = clampedPosition;
+
+                float forcedTurn = transform.position.x > 0 ? -1f : 1f;
+                transform.Rotate(0f, forcedTurn * rotationSpeed * Time.deltaTime * 2f, 0f);
+            }
+
+            _noiseOffset += noiseSampleSpeed * Time.deltaTime;
+
+            yield return null;
+        }
+    }
+
+    public void Disable()
+    {
+        _turret.Disable();
+        if (_perlinMotionCoroutine != null)
+            StopCoroutine(_perlinMotionCoroutine);
+    }
+}

@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class SwipeInputController : MonoBehaviour
+public class InputController : MonoBehaviour
 {
     public event Action<Vector2> OnSwipeUpdate;
     public event Action<Vector2> OnSwipeBegin;

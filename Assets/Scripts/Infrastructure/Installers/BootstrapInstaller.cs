@@ -34,6 +34,8 @@ namespace Infrastructure.Installers
         {
             BindStaticDataService();
             Container.BindInterfacesTo<UIFactory>().AsSingle();
+            Container.BindInterfacesTo<GameFactory>().AsSingle();
+            Container.BindInterfacesTo<EnemyFactory>().AsSingle();
             Container.BindInterfacesTo<SaveLoadService>().AsSingle();
             Container.BindInterfacesTo<WindowService>().AsSingle();
             Container.BindInterfacesTo<PersistenceProgressService>().AsSingle();

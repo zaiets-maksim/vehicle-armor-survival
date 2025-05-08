@@ -2,7 +2,7 @@
 using UnityEngine.SceneManagement;
 using Zenject;
 
-namespace Connect4.Scripts.Services.Factories
+namespace Services.Factories
 {
     public abstract class Factory
     {
@@ -36,7 +36,7 @@ namespace Connect4.Scripts.Services.Factories
             var transform = _instantiator.InstantiatePrefab(prefab, position, Quaternion.Euler(eulerAngles), parent).transform;
             transform.position = position;
             transform.eulerAngles = eulerAngles;
-            // transform.SetPositionAndRotation(position, Quaternion.Euler(eulerAngles));
+
             transform.SetParent(parent);
             MoveToCurrentScene(transform.gameObject);
             

@@ -42,7 +42,6 @@ public class RootMotionAgent : MonoBehaviour
         if (toTarget.magnitude < _stoppingDistance)
         {
             OnDestinationReached?.Invoke();
-            Debug.Log("OnDestinationReached");
             _hasDestination = false;
             return;
         }

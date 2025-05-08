@@ -14,5 +14,6 @@ namespace Services.StaticDataService
 
         BalanceStaticData Balance();
         GameStaticData GameConfig();
+        EnemyConfig ForEnemy(EnemyTypeId enemyTypeId);
     }
 }

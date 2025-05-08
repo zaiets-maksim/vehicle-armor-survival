@@ -1,4 +1,5 @@
 using UnityEngine;
+using Zenject;
 
 [RequireComponent(typeof(Stickman))]
 [RequireComponent(typeof(RootMotionAgent))]
@@ -11,23 +12,27 @@ public class StickmanBehaviour : StickmanStateMachine
     [SerializeField] private StickmanVision _stickmanVision;
     
     
-    [SerializeField] private Car _car; // ZENJECT
+    private Player _player;
+    private IGameFactory _gameFactory;
+
+    [Inject]
+    public void Constructor(IGameFactory gameFactory)
+    {
+        _gameFactory = gameFactory;
+
+        _player = _gameFactory.Player;
+    }
 
     private void OnEnable()
     {
         _states = CreateStates(
             new IdleState(this, _animator),
-            new FollowState(this, _animator, _rootMotionAgent, _stickman, _car),
+            new FollowState(this, _animator, _rootMotionAgent, _stickman, _player),
             new AttackState(this, _animator, _stickmanVision, transform)
         );
 
         ChangeState<IdleState>();
     }
 
-    private void Update()
-    {
-        
-        
-        _currentState?.Update();
-    }
+    private void Update() => _currentState?.Update();
 }
