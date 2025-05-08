@@ -38,7 +38,7 @@ public class CameraScript : MonoBehaviour
             return;
 
         var pos = _defaultPosition + _target.position;
-        pos.x = _target.position.x / 5f;
+        pos.x = _target.position.x / 2f;
         transform.position = pos;
     }
     

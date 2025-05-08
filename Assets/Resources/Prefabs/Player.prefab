@@ -460,12 +460,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4acc9591f6ce2604b88aa815146965af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _health: 40
+  _health: 100
   _collider: {fileID: 5346452699330323315}
   _meshRenderer: {fileID: 5567178784429805742}
   _playerDeath: {fileID: 6942500759222761710}
   _turret: {fileID: 3019937072376311968}
-  moveSpeed: 3
+  moveSpeed: 3.5
   rotationSpeed: 5
   noiseStrength: 0.75
   noiseSampleSpeed: 0.25
@@ -832,7 +832,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 34538598841736079}
   _bulletPrefab: {fileID: 6611994209730837178, guid: 105e4263dd5c8e84fa26ade3e0984671, type: 3}
-  _reloadTime: 1
+  _reloadTime: 0.5
   _firePoint: {fileID: 1266302721304567644}
   _angleLimit: 100
   _useSmoothing: 1
@@ -852,7 +852,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _lineRenderer: {fileID: 7233172700705130723}
   _firePoint: {fileID: 1266302721304567644}
-  _length: 25
+  _length: 15
 --- !u!120 &7233172700705130723
 LineRenderer:
   serializedVersion: 2

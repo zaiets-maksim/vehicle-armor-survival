@@ -8,10 +8,11 @@ internal class FollowState : StickmanBaseState
     private readonly Transform _transform;
     private readonly Player _player;
     private readonly Stickman _stickman;
-    
+
     private Vector3 _point;
 
-    public FollowState(StickmanBehaviour stickmanBehaviour, StickmanAnimator animator, RootMotionAgent rootMotionAgent, Stickman stickman, Player player)
+    public FollowState(StickmanBehaviour stickmanBehaviour, StickmanAnimator animator, RootMotionAgent rootMotionAgent,
+        Stickman stickman, Player player)
     {
         _stickman = stickman;
         _transform = _stickman.transform;
@@ -28,19 +29,11 @@ internal class FollowState : StickmanBaseState
 
     public override void Exit()
     {
-        
     }
 
     public override void Update()
     {
-        if (_player.IsAlive)
-        {
-            _point = _player.GetNearestPointTo(_transform.position);
-            _rootMotionAgent.SetDestination(_point);
-        }
-        else
-        {
-            _stickmanBehaviour.ChangeState<IdleState>();
-        }
+        _point = _player.GetNearestPointTo(_transform.position);
+        _rootMotionAgent.SetDestination(_point);
     }
 }

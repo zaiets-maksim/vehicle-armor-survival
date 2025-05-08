@@ -1,6 +1,7 @@
 using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
+using tetris.Scripts.Extensions;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -25,6 +26,6 @@ public class PlayerDeath : MonoBehaviour
         _rigidbody.AddTorque(Vector3.right * Random.Range(-1, 1) * 50f);
         _rigidbody.AddTorque(Vector3.up * Random.Range(-1, 1) * 50f);
 
-        await UniTask.Delay(2000);
+        await UniTask.Delay(2.ToMiliseconds());
     }
 }

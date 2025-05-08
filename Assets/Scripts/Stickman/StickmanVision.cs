@@ -72,4 +72,11 @@ public class StickmanVision : MonoBehaviour
         Gizmos.color = new Color(1f, 0f, 0f, 0.25f);
         Gizmos.DrawSphere(transform.position, _radiusForAttack);
     }
+
+    public void Disable()
+    {
+        StopLooking();
+        _canAttack = false;
+        _canSee = false;
+    }
 }

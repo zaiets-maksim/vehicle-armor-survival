@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
+using Cysharp.Threading.Tasks;
 using DG.Tweening;
+using tetris.Scripts.Extensions;
 using UnityEngine;
 using Zenject;
 using Random = UnityEngine.Random;
@@ -59,13 +61,19 @@ public class Player : MonoBehaviour, IDamageble
         _healthBar.SetActive(true);
     }
 
-    public void Disable()
+    public async void Disable(float stopDelay = 0f)
     {
         _turret.Disable();
-        if (_perlinMotionCoroutine != null)
-            StopCoroutine(_perlinMotionCoroutine);
         _healthBar.SetActive(false);
+
+        if (_perlinMotionCoroutine != null)
+        {
+            await UniTask.Delay(stopDelay.ToMiliseconds());
+            StopCoroutine(_perlinMotionCoroutine);
+        }
     }
+
+    private void SmoothStop(float duration) => DOTween.To(() => moveSpeed, x => moveSpeed = x, 0f, duration);
 
     public async void TakeDamage(int damage)
     {
@@ -82,6 +90,16 @@ public class Player : MonoBehaviour, IDamageble
             await _playerDeath.Active();
             _gameCurator.EndGame(GameResult.Lose);
         }
+    }
+
+    public void TryWin()
+    {
+        if(!IsAlive)
+            return;
+        
+        _gameCurator.EndGame(GameResult.Win);
+        SmoothStop(1f);
+        Disable(1f);
     }
 
     private void AnimateDamage()

@@ -1,6 +1,7 @@
 using System;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
+using tetris.Scripts.Extensions;
 using UnityEngine;
 using Zenject;
 
@@ -21,11 +22,13 @@ public class Stickman : Enemy, IDamageble
     
     private Player _player;
     private Vector3 _point;
+    private IGameCurator _gameCurator;
 
 
     [Inject]
-    public void Constructor(IGameFactory gameFactory)
+    public void Constructor(IGameFactory gameFactory, IGameCurator gameCurator)
     {
+        _gameCurator = gameCurator;
         _gameFactory = gameFactory;
         
         _player = _gameFactory.Player;
@@ -34,12 +37,22 @@ public class Stickman : Enemy, IDamageble
     private void Start()
     {
         _rootMotionAgent.OnDestinationReached += TryChangeToAttackState;
+        _gameCurator.OnEndGame += Disable;
         Init();
     }
 
     private void OnDestroy()
     {
         _rootMotionAgent.OnDestinationReached -= TryChangeToAttackState;
+        _gameCurator.OnEndGame -= Disable;
+    }
+
+    private void Disable(GameResult result)
+    {
+        _vision.Disable();
+        _rootMotionAgent.SetDestination(transform.position);
+        _stickmanBehaviour.ChangeState<IdleState>();
+        enabled = false;
     }
 
     private void Update()
@@ -82,7 +95,7 @@ public class Stickman : Enemy, IDamageble
         transform.DOPunchScale(Vector3.one * 0.2f, 0.3f);
         
         _skinnedMeshRenderer.material.color = Color.white;
-        await UniTask.Delay(250);
+        await UniTask.Delay(0.25f.ToMiliseconds());
         _skinnedMeshRenderer.material.color = Color.red;
     }
 
