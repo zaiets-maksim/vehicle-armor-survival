@@ -19,42 +19,29 @@ public class Stickman : Enemy, IDamageble
     [SerializeField] private HealthView _healthView;
 
     public event Action<int> OnTakeDamage;
-
-    private IGameFactory _gameFactory;
-
-    private Player _player;
+    
     private Vector3 _point;
     private IGameCurator _gameCurator;
 
 
     [Inject]
-    public void Constructor(IGameFactory gameFactory, IGameCurator gameCurator)
+    public void Constructor(IGameCurator gameCurator)
     {
         _gameCurator = gameCurator;
-        _gameFactory = gameFactory;
-
-        _player = _gameFactory.Player;
     }
 
-    private void Start()
+    private void Start() => Init();
+
+    private void OnEnable()
     {
         _rootMotionAgent.OnDestinationReached += TryChangeToAttackState;
         _gameCurator.OnEndGame += Disable;
-        Init();
     }
 
-    private void OnDestroy()
+    private void OnDisable()
     {
         _rootMotionAgent.OnDestinationReached -= TryChangeToAttackState;
         _gameCurator.OnEndGame -= Disable;
-    }
-
-    private void Disable(GameResult result)
-    {
-        _vision.Disable();
-        _rootMotionAgent.SetDestination(transform.position);
-        _stickmanBehaviour.ChangeState<IdleState>();
-        enabled = false;
     }
 
     private void Update()
@@ -63,6 +50,14 @@ public class Stickman : Enemy, IDamageble
         {
             _stickmanBehaviour.ChangeState<FollowState>();
         }
+    }
+
+    private void Disable(GameResult result)
+    {
+        _vision.Disable();
+        _rootMotionAgent.SetDestination(transform.position);
+        _stickmanBehaviour.ChangeState<IdleState>();
+        enabled = false;
     }
 
     private void Init()

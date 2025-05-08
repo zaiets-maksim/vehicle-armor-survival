@@ -20,13 +20,13 @@ public class CameraScript : MonoBehaviour
         _gameCurator = gameCurator;
     }
 
-    private void Start()
+    private void OnEnable()
     {
         _gameCurator.OnStartGame += ToStartPosition;
         _gameCurator.OnEndGame += Disable;
     }
 
-    private void OnDestroy()
+    private void OnDisable()
     {
         _gameCurator.OnStartGame -= ToStartPosition;
         _gameCurator.OnEndGame -= Disable;

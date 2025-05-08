@@ -43,17 +43,17 @@ public class Player : MonoBehaviour, IDamageble
         _gameCurator = gameCurator;
     }
 
-    private void Start()
+    private void Start() => Init();
+
+    private void OnEnable() => _gameCurator.OnStartGame += Enable;
+    
+    private void OnDisable() => _gameCurator.OnStartGame -= Enable;
+
+    private void Init()
     {
         _material = _meshRenderer.material;
         _noiseOffset = Random.Range(0f, 100f);
-        _gameCurator.OnStartGame += Enable;
         _healthView.Init(_health, this);
-    }
-
-    private void OnDestroy()
-    {
-        _gameCurator.OnStartGame -= Enable;
     }
 
     public void Enable()
