@@ -82,7 +82,7 @@ public class Turret : MonoBehaviour
     {
         var bullet = Instantiate(_bulletPrefab, _firePoint.position, _firePoint.rotation);
         StartCoroutine(bullet.Move(player.CurrentVelocity));
-        bullet.AlightByHeight(1.1f);
+        bullet.AlightByHeight(1.2f);
         _reloadAndShotCoroutine = StartCoroutine(ReloadAndShot());
     }
 }
