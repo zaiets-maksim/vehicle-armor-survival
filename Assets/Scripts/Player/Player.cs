@@ -204,7 +204,7 @@ public class Player : MonoBehaviour, IDamageble
 
             _noiseOffset += noiseSampleSpeed * Time.deltaTime;
 
-            yield return null;
+            yield return new WaitForFixedUpdate();
         }
     }
 }

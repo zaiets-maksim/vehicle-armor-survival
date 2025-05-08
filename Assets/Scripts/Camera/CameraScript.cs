@@ -69,7 +69,7 @@ public class CameraScript : MonoBehaviour
             transform.rotation = Quaternion.Lerp(transform.rotation, _startPoint.rotation, elapsedTime / duration);
 
             elapsedTime += Time.deltaTime;
-            yield return null;
+            yield return new WaitForFixedUpdate();
         }
 
         callback?.Invoke();
