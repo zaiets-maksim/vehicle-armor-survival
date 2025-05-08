@@ -19,7 +19,7 @@ public class InputController : MonoBehaviour
 #if UNITY_EDITOR
         _processInput = ProcessMouseInput;
 #elif UNITY_ANDROID
-        inputAction = ProcessTouchInput;
+        _processInput = ProcessTouchInput;
 #endif
     }
 
