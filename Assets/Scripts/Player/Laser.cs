@@ -26,7 +26,7 @@ public class Laser : MonoBehaviour
     {
         Vector3 start = _firePoint.position;
         Vector3 end = start + _firePoint.forward * _length;
-
+        end.y = 1.2f;
         _lineRenderer.SetPosition(0, start);
         _lineRenderer.SetPosition(1, end);
     }
