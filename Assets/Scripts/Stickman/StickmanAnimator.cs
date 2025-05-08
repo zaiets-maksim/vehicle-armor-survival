@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using System.Linq;
+using ModestTree;
 using Random = UnityEngine.Random;
 
 public class StickmanAnimator : MonoBehaviour
@@ -18,6 +19,7 @@ public class StickmanAnimator : MonoBehaviour
         var controller = _animator.runtimeAnimatorController;
         _idleStateNames = controller.animationClips
             .Select(clip => clip.name)
+            .Except("Zombie Running")
             .ToArray();
     }
 
