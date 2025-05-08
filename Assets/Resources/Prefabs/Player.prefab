@@ -834,7 +834,7 @@ MonoBehaviour:
   _bulletPrefab: {fileID: 6611994209730837178, guid: 105e4263dd5c8e84fa26ade3e0984671, type: 3}
   _reloadTime: 0.5
   _firePoint: {fileID: 1266302721304567644}
-  _angleLimit: 100
+  _angleLimit: 179
   _useSmoothing: 1
   _rotationSpeed: 400
   _laser: {fileID: 530831226087510903}
