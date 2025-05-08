@@ -32,7 +32,7 @@ public class Stickman : Enemy, IDamageble
     {
         _gameCurator = gameCurator;
         _gameFactory = gameFactory;
-        
+
         _player = _gameFactory.Player;
     }
 
@@ -64,7 +64,7 @@ public class Stickman : Enemy, IDamageble
             _stickmanBehaviour.ChangeState<FollowState>();
         }
     }
-    
+
     private void Init()
     {
         _vision.StartLooking();
@@ -78,14 +78,14 @@ public class Stickman : Enemy, IDamageble
         _health -= bullet.Damage;
         OnTakeDamage?.Invoke(bullet.Damage);
         _damageView.ShowDamage(bullet.Damage);
-        
+
         if (_health <= 0)
         {
             _damageView.ShowDamage(bullet.Damage);
             Death();
             return;
         }
-        
+
         AnimateDamage();
         _damageParticles.transform.SetPositionAndRotation(contactPoint, Quaternion.Inverse(bullet.transform.rotation));
         _damageParticles.gameObject.SetActive(true);
@@ -98,10 +98,10 @@ public class Stickman : Enemy, IDamageble
         transform.DOShakePosition(0.3f, 0.2f);
         transform.DOShakeRotation(0.3f, 50f);
         transform.DOPunchScale(Vector3.one * 0.2f, 0.3f);
-        
+
         _skinnedMeshRenderer.material.color = Color.white;
         await UniTask.Delay(0.25f.ToMiliseconds());
-        if(_health <= 0)
+        if (_health <= 0)
             return;
 
         _skinnedMeshRenderer.material.color = Color.red;
@@ -120,7 +120,7 @@ public class Stickman : Enemy, IDamageble
 
         Destroy(_deathParticles.gameObject, 3f);
         Destroy(_damageParticles.gameObject, 3f);
-        gameObject.SetActive(false);
+        transform.DOScale(Vector3.zero, 0.2f).OnComplete(() => { gameObject.SetActive(false); });
     }
 
     private void OnDrawGizmos()
